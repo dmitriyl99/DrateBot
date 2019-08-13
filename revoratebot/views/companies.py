@@ -40,7 +40,7 @@ class CreateCompanyView(CreateView, LoginRequiredMixin):
         result = super().form_valid(form)
         companies.create_default_company_departments(self.object)
         messages.success(self.request, "Создана компания %s вместе со стандартными отделами Dispatchers, Update, "
-                                       "Safety, Fleet, Trailer" % form.cleaned_data['name'])
+                                       "Safety, Fleet, Trailer, Logbook" % form.cleaned_data['name'])
         return result
 
 
