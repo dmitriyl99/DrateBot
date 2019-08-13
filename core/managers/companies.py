@@ -12,6 +12,16 @@ def create_default_company_departments(company: Company):
     dispatchers.save()
     drivers = Department(name='Drivers', code_name=Department.DefaultNames.DRIVERS, company=company)
     drivers.save()
+    updaters = Department(name='Update', company=company)
+    updaters.save()
+    safety = Department(name='Safety', company=company)
+    safety.save()
+    fleet = Department(name='Fleet', company=company)
+    fleet.save()
+    trailer = Department(name='Trailer', company=company)
+    trailer.save()
+    logbook = Department(name='Logbook', company=company)
+    logbook.save()
 
 
 def get_company_by_id(company_id) -> Optional[Company]:
