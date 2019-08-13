@@ -40,11 +40,13 @@ class Access:
             return False
         if user.is_manager:
             return False
+        if user.department.code_name != Department.DefaultNames.DRIVERS:
+            return False
         return Access._private(message) and strings.get_string('menu.put_estimate', user.language) in message.text
 
     @staticmethod
     def sos(message: Message):
-        if not message.location:
+        if not message.text:
             return False
         user = Access._auth(message)
         if not user:
@@ -53,7 +55,7 @@ class Access:
             return False
         if user.department.code_name != Department.DefaultNames.DRIVERS:
             return False
-        return Access._private(message)
+        return Access._private(message) and strings.get_string('menu.sos_signal', user.language) in message.text
     
     @staticmethod
     def ratings(message: Message):
