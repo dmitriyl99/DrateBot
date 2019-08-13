@@ -13,7 +13,7 @@ telegram_bot = TeleBot(app_settings.API_TOKEN)
 from . import registration, estimates, managers, settings, sos
 from .utils import Navigation
 
-@telegram_bot.message_handler(content_type='text', func=lambda m: message.chat.type == 'private')
+@telegram_bot.message_handler(content_type='text', func=lambda m: m.chat.type == 'private')
 def empty_message(message: Message):
     user_id = message.from_user.id
     chat_id = message.chat.id
