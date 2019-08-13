@@ -35,7 +35,7 @@
     "sos.success": "Сигнал SOS отправлен отделу {} ✅",
     "sos.new_signal": "⚠️ <b>Новый сигнал SOS!</b>",
     "sos.sender": "<b>Кто</b>: {name} - {phone}",
-    "sos.department_name": "<b>Отдел</b>: {}",
+    "sos.department_name": "<b>Кому адресовано</b>: {}",
     "sos.sent_at": "\uD83D\uDCC5 <b>Когда</b>: {date}",
     "ratings.from_user": "От кого: {name} из отдела {department} - {phone}\n",
     "ratings.to_user": "Кому: {name} из отдела {department} - {phone}\n",
