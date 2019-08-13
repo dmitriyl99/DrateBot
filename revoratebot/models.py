@@ -50,6 +50,7 @@ class SosSignal(models.Model):
     location_lat = models.FloatField()
     location_lon = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
+    department_name = models.CharField(max_length=150, blank=True, null=True)
 
 
 class Rating(models.Model):

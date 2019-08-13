@@ -55,7 +55,7 @@ class Access:
             return False
         if user.department.code_name != Department.DefaultNames.DRIVERS:
             return False
-        return Access._private(message) and strings.get_string('menu.sos_signal', user.language) in message.text
+        return Access._private(message) and strings.get_string('menu.sos', user.language) in message.text
     
     @staticmethod
     def ratings(message: Message):
