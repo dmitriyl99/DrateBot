@@ -8,6 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from core.managers import companies, users, ratings
 from django.http import Http404
+from bot import telegram_bot
 
 
 class UsersListView(LoginRequiredMixin, ListView):
@@ -68,6 +69,11 @@ class UserCreatedView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'admin/users/user_created.html'
     context_object_name = 'user'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['bot_username'] = telegram_bot.get_me().username
+        return context
 
 
 class EditUserView(LoginRequiredMixin, FormView):

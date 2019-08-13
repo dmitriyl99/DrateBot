@@ -8,7 +8,7 @@
         <i class="si si-check text-primary display-1"></i>
         <p class="mt-20 font-size-h5">Сотрудник <strong>{{ user.name }}</strong> добавлен, теперь ему необходимо пройти регистрацию в Telegram боте с помощью этой ссылки:</p>
         <p class="font-size-h3">
-            <a href="#" class="link-effect">https://t.me/ViduzTestBot/?start={{ user.token }}</a>
+            <a href="#" class="link-effect">https://t.me/{{ bot_username }}/?start={{ user.token }}</a>
         </p>
         <p class="font-size-h5">Скопируйте и отправьте эту ссылку вашему сотруднику <span class="font-size-h4 text-danger text-uppercase">и больше никому!</span></p>
     </div>
