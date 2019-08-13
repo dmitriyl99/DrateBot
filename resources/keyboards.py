@@ -17,8 +17,7 @@ def get_keyboard(key, language='ru'):
     elif key == 'registration.languages':
         language_keyboard = _create_keyboard(row_width=1)
         language_keyboard.add(get_string('languages.ru', language),
-                              get_string('languages.en', language),
-                              get_string('languages.uz', language))
+                              get_string('languages.en', language))
         return language_keyboard
     elif key == 'settings':
         settings_keyboard = _create_keyboard(row_width=1)
@@ -70,8 +69,6 @@ def keyboard_by_user_language(user: User) -> ReplyKeyboardMarkup:
     keyboard = _create_keyboard(row_width=1)
     if user.language != 'ru':
         keyboard.add(get_string('languages.ru'))
-    if user.language != 'uz':
-        keyboard.add(get_string('languages.uz'))
     if user.language != 'en':
         keyboard.add(get_string('languages.en'))
     keyboard.add(get_string('go_back', user.language))
