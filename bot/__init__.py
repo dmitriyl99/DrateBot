@@ -6,12 +6,12 @@ from Revorate import settings as app_settings
 from telebot.types import Message
 from resources import strings, keyboards
 from core.managers import users
-from .utils import Navigation
 
 
 telegram_bot = TeleBot(app_settings.API_TOKEN)
 
 from . import registration, estimates, managers, settings, sos
+from .utils import Navigation
 
 @telegram_bot.message_handler(content_type='text', func=lambda m: message.chat.type == 'private')
 def empty_message(message: Message):
