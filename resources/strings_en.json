@@ -35,7 +35,7 @@
     "sos.success": "The SOS signal has been sent to {} department ✅",
     "sos.new_signal": "⚠️ <b>New SOS signal!</b>",
     "sos.sender": "<b>Who</b>: {name} - {phone}",
-    "sos.department_name": "<b>Department</b>: {}",
+    "sos.department_name": "<b>To whom was addressed</b>: {}",
     "sos.sent_at": "\uD83D\uDCC5 <b>When</b>: {date}",
     "ratings.from_user": "From whom: {name} from {department} department - {phone}\n",
     "ratings.to_user": "Whom: {name} from {department} department - {phone}\n",
