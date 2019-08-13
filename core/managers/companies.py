@@ -8,18 +8,10 @@ def create_default_company_departments(company: Company):
     :param company: New company
     :return: void
     """
-    dispatchers = Department(name='Dispatchers', company=company)
+    dispatchers = Department(name='Dispatchers', company=company, code_name=Department.DefaultNames.DISPATCHERS)
     dispatchers.save()
     drivers = Department(name='Drivers', code_name=Department.DefaultNames.DRIVERS, company=company)
     drivers.save()
-    updaters = Department(name='Update', company=company)
-    updaters.save()
-    safety = Department(name='Safety', company=company)
-    safety.save()
-    fleet = Department(name='Fleet', company=company)
-    fleet.save()
-    trailer = Department(name='Trailer', company=company)
-    trailer.save()
 
 
 def get_company_by_id(company_id) -> Optional[Company]:
