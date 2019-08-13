@@ -53,6 +53,8 @@ def string_from_sos_signal(sos_signal: SosSignal, sender, language):
     sos_message_content += '\n'
     sos_message_content += get_string('sos.sender', language).format(name=sender.name, phone=sender.phone_number)
     sos_message_content += '\n'
+    sos_message_content += get_string('sos.department_name', language).format(sos_signal.department_name)
+    sos_message_content += '\n'
     sos_message_content += get_string('sos.sent_at', language).format(date=datetime)
     return sos_message_content
 

@@ -34,6 +34,12 @@ def get_keyboard(key, language='ru'):
                                get_string('estimates.value_1', language),
                                get_string('go_back', language))
         return estimates_keyboard
+    elif key == 'sos.confirm':
+        sos_keyboard = _create_keyboard(row_width=1)
+        sos_button = KeyboardButton(get_string('sos.send_signal', language), request_location=True)
+        sos_keyboard.add(sos_button)
+        sos_keyboard.add(get_string('go_back', language))
+        return sos_keyboard
     elif key == 'go_back':
         go_back_keyboard = _create_keyboard(row_width=1)
         go_back_keyboard.add(get_string('go_back', language))
@@ -49,7 +55,7 @@ def get_main_keyboard_by_user_role(user: User):
         keyboard = _create_keyboard(row_width=1)
         keyboard.add(get_string('menu.put_estimate', language))
         if user.department.code_name == drivers_code:
-            sos_button = KeyboardButton(get_string('menu.sos', language), request_location=True)
+            sos_button = KeyboardButton(get_string('menu.sos', language))
             keyboard.add(sos_button)
     else:
         if not user.is_manager:
