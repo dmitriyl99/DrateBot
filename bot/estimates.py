@@ -6,20 +6,7 @@ from resources import strings, keyboards
 from telebot.types import Message
 
 
-def _to_departments_select(user, chat_id):
-    departments = user.department.company.department_set.all()
-    departments_message = strings.get_string('estimates.select_department', user.language)
-    departments_keyboard = keyboards.keyboard_from_departments_list(departments, user.language)
-    telegram_bot.send_message(chat_id, departments_message, reply_markup=departments_keyboard)
-    telegram_bot.register_next_step_handler_by_chat_id(chat_id, departments_processor, user=user)
-
-
-def _to_users(user, chat_id, department_name, error_callback=None):
-    department_users = users.find_users_by_department_name(department_name, user.id, user.department.company_id)
-    if not department_users:
-        if error_callback:
-            error_callback()
-        return
+def _to_dispatchers_select(user, chat_id):
     users_message = strings.get_string('estimates.select_user', user.language)
     users_keyboard = keyboards.keyboard_from_users_list(department_users, user.language)
     telegram_bot.send_message(chat_id, users_message, reply_markup=users_keyboard)
@@ -39,25 +26,7 @@ def estimates_handler(message: Message):
     chat_id = message.chat.id
     user_id = message.from_user.id
     user = users.get_user_by_telegram_id(user_id)
-    _to_departments_select(user, chat_id)
-
-
-def departments_processor(message: Message, **kwargs):
-    user = kwargs.get('user')
-    chat_id = message.chat.id
-
-    def error():
-        error_message = strings.get_string('estimates.select_department', user.language)
-        telegram_bot.send_message(chat_id, error_message)
-        telegram_bot.register_next_step_handler_by_chat_id(chat_id, departments_processor, user=user)
-
-    if not message.text:
-        error()
-        return
-    if strings.get_string('go_back', user.language) in message.text:
-        Navigation.to_main_menu(user, chat_id)
-        return
-    _to_users(user, chat_id, message.text, error_callback=error)
+    _to_dispatchers_select(user, chat_id)
 
 
 def users_processor(message: Message, **kwargs):
@@ -73,9 +42,9 @@ def users_processor(message: Message, **kwargs):
         error()
         return
     if strings.get_string('go_back', user.language) in message.text:
-        _to_departments_select(user, chat_id)
+        Navigation.to_main_menu(user, chat_id)
         return
-    selected_user = users.find_user_by_name(message.text)
+    selected_user = users.find_dispatcher_by_name(message.text)
     if not selected_user:
         error()
         return
@@ -98,7 +67,7 @@ def estimates_processor(message: Message, **kwargs):
         return
     # BUG: Go back doesn't work
     if strings.get_string('go_back', user.language) in message.text:
-        _to_users(user, chat_id, user.department.name)
+        _to_dispatchers_select(user, chat_id)
         return
     value = strings.estimate_value_from_string(message.text, user.language)
     if not value:
