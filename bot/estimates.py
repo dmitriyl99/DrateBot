@@ -7,8 +7,13 @@ from telebot.types import Message
 
 
 def _to_dispatchers_select(user, chat_id):
+    dispatchers = users.get_dispatchers()
+    if not dispatchers:
+        empty_message = strings.get_string('estimates.dispatchers_empty', user.language)
+        telegram_bot.send_message(chat_id, empty_message)
+        return
     users_message = strings.get_string('estimates.select_user', user.language)
-    users_keyboard = keyboards.keyboard_from_users_list(department_users, user.language)
+    users_keyboard = keyboards.keyboard_from_users_list(dispatchers, user.language)
     telegram_bot.send_message(chat_id, users_message, reply_markup=users_keyboard)
     telegram_bot.register_next_step_handler_by_chat_id(chat_id, users_processor, user=user)
 
