@@ -28,8 +28,10 @@ SECRET_KEY = 'kr%ru*6v#5bot8j2l=kuo6%+87#gp(&fk0i7en-=3pz8-mypa&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['157.230.84.166']
 
+CSRF_COOKIE_DOMAIN = '157.230.84.166'
+CSRF_TRUSTED_ORIGINS = ['157.230.84.166']
 
 # Application definition
 
@@ -136,5 +138,6 @@ API_TOKEN = os.environ.get('API_TOKEN')
 WEBHOOK_HOST = os.environ.get('WEBHOOK_HOST')
 WEBHOOK_URL_BASE = 'https://%s/bot' % WEBHOOK_HOST
 WEBHOOK_URL_PATH = '%s/' % API_TOKEN
+WEBHOOK_SSL_CERT = '/home/telegrambot/certs/cert.pem'
 
 CLOUD_BROWSER_KEY = os.getenv('CLOUD_BROWSER_KEY')
