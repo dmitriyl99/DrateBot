@@ -71,6 +71,27 @@ def find_users_by_department_name(department_name: str, exclude_user_id: int, co
     return User.objects.filter(department__name=department_name, department__company_id=company_id).exclude(id=exclude_user_id)
 
 
+def get_dispatchers() -> List[User]:
+    """
+    Get dispatchers
+    :return: void
+    """
+    return User.objects.filter(department__code_name=Department.DefaultNames.DISPATCHERS)
+
+
+def find_dispatcher_by_name(dispatcher_name: str) -> Optional[User]:
+    """
+    Find dispatcher by name
+    :param dispatcher_name: Dispatcher name
+    :return: Found dispatcher or None
+    """
+    try:
+        dispatcher = User.objects.filter(department__code_name=Department.DefaultNames.DISPATCHERS, name=dispatcher_name)[0]
+    except IndexError:
+        dispatcher = None
+    return dispatcher
+
+
 def find_user_by_name(user_name: str) -> Optional[User]:
     """
     Find user by his name
