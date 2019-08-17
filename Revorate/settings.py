@@ -84,12 +84,8 @@ WSGI_APPLICATION = 'Revorate.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ratebot',
-        'USER': 'ratebot',
-        'PASSWORD': 'f6rwsR54jT5TRuka',
-        'HOST': 'localhost',
-        'PORT': '6432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3'
     }
 }
 
