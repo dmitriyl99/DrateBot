@@ -20,7 +20,7 @@ def init():
 
 
 def add_timer_for_comment(chat_id, rating_id: int, func):
-    trigger = IntervalTrigger(minutes=1)
+    trigger = IntervalTrigger(minutes=5)
     _scheduler.add_job(func, trigger, [chat_id, rating_id], 
                        id='rating_{}'.format(rating_id), replace_existing=True)
 

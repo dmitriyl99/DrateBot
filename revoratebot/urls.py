@@ -22,5 +22,5 @@ urlpatterns = [
     path('ratings/<int:company_id>/', ratings.BotCompanyRatingView.as_view(), name='bot_company_ratings'),
     path('sos/', sos.SosSignalsListView.as_view(), name='admin_sos'),
     path('init/', bot.BotInitializeView.as_view()),
-    path(WEBHOOK_URL_PATH, bot.BotUpdatesRecieverView.as_view())
+    path('bot/' + WEBHOOK_URL_PATH, bot.BotUpdatesRecieverView.as_view())
 ]
