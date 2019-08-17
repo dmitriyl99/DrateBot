@@ -42,6 +42,6 @@
     "ratings.created_at": "📅 When: {}",
     "ratings.select_company": "Select a company",
     "ratings.please_wait": "Collecting the data, please wait...",
-    "notifications.message": "Do not forget put estimates to employees of your company!",
+    "notifications.message": "Don't forget to rate your dispatcher",
     "go_back": "⬅️ Back"
 }
