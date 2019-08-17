@@ -10,6 +10,7 @@ let NewUserPage = function() {
       let departmentsLabel = $('label[for=departmentsSelect]');
       let companiesSelect = $('#companiesSelect');
       let departmentsSelect = $('#departmentsSelect');
+      let dispatchersSelect = $('#dispatchersSelect');
       let depatmentsList = $('#departmentsList');
       let companyInput = $('#company');
       let departmentInput = $('#department');
@@ -97,8 +98,10 @@ let NewUserPage = function() {
               departmentsSelect.attr('disabled', 'disabled');
               addCompanyBtn.addClass('disabled');
               addDepartmentBtn.addClass('disabled');
+              dispatchersSelect.attr('disabled', 'disabled');
           } else {
               companiesSelect.removeAttr('disabled');
+              dispatchersSelect.removeAttr('disabled');
               addCompanyBtn.removeClass('disabled');
           }
       })

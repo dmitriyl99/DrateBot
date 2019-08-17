@@ -34,6 +34,7 @@ class CreateUserView(LoginRequiredMixin, FormView):
         is_manager = form.cleaned_data['is_manager']
         department = form.cleaned_data['department']
         company = form.cleaned_data['company']
+        dispatcher_id = form.cleaned_data['dispatcher_id']
         if not is_manager:
             if company == '' or company.isspace():
                 form.add_error('company', 'Вы не указали компанию')
@@ -42,7 +43,7 @@ class CreateUserView(LoginRequiredMixin, FormView):
                 form.add_error('department', 'Вы не указали отделение')
                 return super().form_invalid(form)
         try:
-            user = users.create_user(name, phone_number, company, department, is_manager)
+            user = users.create_user(name, phone_number, company, department, is_manager, dispatcher_id)
         except Company.DoesNotExist:
             messages.error(self.request, "Указанная компания не существует, проверьте свой выбор")
             return super().form_invalid(form)
@@ -62,6 +63,7 @@ class CreateUserView(LoginRequiredMixin, FormView):
         context = super().get_context_data(**kwargs)
         context['companies'] = companies.get_all_companies()
         context['departments'] = companies.get_all_departments()
+        context['dispatchers'] = users.get_dispatchers()
         return context
 
 
@@ -105,6 +107,8 @@ class EditUserView(LoginRequiredMixin, FormView):
             initial['company'] = ''
             initial['department'] = ''
         initial['is_manager'] = user.is_manager
+        if user.dispatcher:
+            initial['dispatcher_id'] = user.dispatcher_id
         return initial
 
     def post(self, request, *args, **kwargs):
@@ -124,6 +128,7 @@ class EditUserView(LoginRequiredMixin, FormView):
         is_manager = form.cleaned_data['is_manager']
         department = form.cleaned_data['department']
         company = form.cleaned_data['company']
+        dispatcher_id = form.cleaned_data['dispatcher_id']
         if not is_manager:
             if company == '' or company.isspace():
                 form.add_error('company', 'Вы не указали компанию')
@@ -131,9 +136,12 @@ class EditUserView(LoginRequiredMixin, FormView):
             if department == '' or department.isspace():
                 form.add_error('department', 'Вы не указали отделение')
                 return super().form_invalid(form)
-
+            if not dispatcher_id and dispatcher_id < 1:
+                return super().form_invalid(form)
+        else:
+            dispatcher_id = None
         try:
-            user = users.edit_user(self.object.id, name, phone_number, company, department, is_manager)
+            user = users.edit_user(self.object.id, name, phone_number, company, department, is_manager, dispatcher_id)
         except Company.DoesNotExist:
             messages.error(self.request, "Указанная компания не существует, проверьте свой выбор")
             return super().form_invalid(form)
@@ -154,9 +162,12 @@ class EditUserView(LoginRequiredMixin, FormView):
         context = super().get_context_data(**kwargs)
         context['companies'] = companies.get_all_companies()
         context['departments'] = companies.get_all_departments()
-        context['user_id'] = self.object.id
+        context['user'] = self.object
+        if self.object.dispatcher:
+            context['dispatcher_id'] = self.object.dispatcher.id
         if self.company:
             context['current_departments'] = self.company.department_set.all()
+        context['dispatchers'] = users.get_dispatchers()
         return context
 
 

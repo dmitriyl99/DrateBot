@@ -7,3 +7,4 @@ class CreateUserForm(forms.Form):
     company = forms.CharField(required=False)
     department = forms.CharField(required=False)
     is_manager = forms.BooleanField(initial=False, required=False)
+    dispatcher_id = forms.IntegerField(initial=None, required=False)

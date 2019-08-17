@@ -112,7 +112,7 @@ def get_registered_managers() -> List[User]:
     return User.objects.filter(is_manager=True, confirmed=True)
 
 
-def create_user(name: str, phone_number: str, company: str, department: str, is_manager: bool) -> User:
+def create_user(name: str, phone_number: str, company: str, department: str, is_manager: bool, dispatcher_id: int) -> User:
     """
     Create a new user with given data
     :param company: user company
@@ -124,7 +124,9 @@ def create_user(name: str, phone_number: str, company: str, department: str, is_
     """
     user_department = _get_new_edit_user_department(company, department, is_manager)
     token = secrets.token_urlsafe(20)
-    user = User(name=name, phone_number=phone_number, department=user_department, token=token, is_manager=is_manager)
+    user = User(name=name, phone_number=phone_number, department=user_department,
+                token=token, is_manager=is_manager,
+                dispatcher_id=dispatcher_id)
     user.save()
     return user
 
@@ -162,12 +164,14 @@ def _get_new_edit_user_department(company: str, department: str, is_manager: boo
     return user_department
 
 
-def edit_user(user_id: int, name: str, phone_number: str, company: str, department: str, is_manager: bool) -> User:
+def edit_user(user_id: int, name: str, phone_number: str, company: str,
+              department: str, is_manager: bool, dispatcher_id: int) -> User:
     user = get_by_id(user_id)
     user.name = name
     user.phone_number = phone_number
     user.department = _get_new_edit_user_department(company, department, is_manager)
     user.is_manager = is_manager
+    user.dispatcher_id = dispatcher_id
     user.save()
     return user
 

@@ -13,7 +13,7 @@
     <span class="breadcrumb-item active">{{ form.name.value }}</span>
 {% endblock %}
 {% block content %}
-    <form action="{% url 'admin_delete_user' pk=user_id %}" id="userDeleteForm" method="post">
+    <form action="{% url 'admin_delete_user' pk=user.id %}" id="userDeleteForm" method="post">
         {% csrf_token %}
     </form>
     <form action="" method="post">
@@ -95,11 +95,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="row align-items-center mb-20 justify-content-center">
-                    <label class="css-control css-control-primary css-checkbox">
-                        <input type="checkbox" name="is_manager" id="is_manager" class="css-control-input" {% if form.is_manager.value %}checked{% endif %}>
-                        <span class="css-control-indicator"></span> Менеджер
-                    </label>
+                <div class="row mb-20">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group {% if form.dispatcher_id.errors %}is-invalid{% endif %}">
+                            <div class="form-material input-group">
+                                <select name="dispatcher_id" id="dispatchersSelect" class="js-select2 form-control" data-placeholder="Диспетчер (только для водителей)" {% if form.is_manager.value %}disabled{% endif %}>
+                                    <option></option>
+                                    {% for dispatcher in dispatchers %}
+                                        <option value="{{ dispatcher.id }}" {% if form.dispatcher_id.value %}{% if form.dispatcher_id.value == dispatcher.id %}selected{% endif %}{% endif %}>{{ dispatcher.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="dispatchersSelect">Диспетчер</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <label class="css-control css-control-primary css-checkbox">
+                            <input type="checkbox" name="is_manager" id="is_manager" class="css-control-input">
+                            <span class="css-control-indicator"></span> Менеджер
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

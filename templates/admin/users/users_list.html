@@ -78,6 +78,7 @@
                                 <th class="text-center">Номер телефона</th>
                                 <th class="text-center">Компания</th>
                                 <th class="text-center">Отдел</th>
+                                <th class="text-center">Диспатчер</th>
                                 <th class="text-center">Подтверждён</th>
                                 <th class="text-center">Действия</th>
                             </tr>
@@ -100,6 +101,13 @@
                                             {{ user.department.name }}
                                         {% else %}
                                             <span class="badge badge-info">Менеджер</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if user.dispatcher %}
+                                            {{ user.dispatcher.name }}
+                                        {% else %}
+                                            -
                                         {% endif %}
                                     </td>
                                     <td class="text-center">
