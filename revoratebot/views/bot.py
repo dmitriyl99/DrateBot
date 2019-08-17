@@ -3,14 +3,14 @@ from django.http import HttpRequest, HttpResponseBadRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from telebot.types import Update
-from Revorate.settings import WEBHOOK_URL_PATH, WEBHOOK_URL_BASE, WEBHOOK_SSL_CERT
+from Revorate.settings import WEBHOOK_URL_PATH, WEBHOOK_URL_BASE
 
 
 class BotInitializeView(View):
     def get(self, request: HttpRequest, *args, **kwargs):
         from bot import telegram_bot
         telegram_bot.remove_webhook()
-        telegram_bot.set_webhook(WEBHOOK_URL_BASE + '/' + WEBHOOK_URL_PATH, certificate=open(WEBHOOK_SSL_CERT, 'r'))
+        telegram_bot.set_webhook(WEBHOOK_URL_BASE + '/' + WEBHOOK_URL_PATH)
         from core import scheduler
         scheduler.init()
         return HttpResponse('Initialized Successfully!')

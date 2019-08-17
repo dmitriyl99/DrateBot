@@ -26,12 +26,12 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = 'kr%ru*6v#5bot8j2l=kuo6%+87#gp(&fk0i7en-=3pz8-mypa&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['157.230.84.166']
+ALLOWED_HOSTS = ['ratebot-api.oziquz.ga']
 
-CSRF_COOKIE_DOMAIN = '157.230.84.166'
-CSRF_TRUSTED_ORIGINS = ['157.230.84.166']
+CSRF_COOKIE_DOMAIN = 'ratebot-api.oziquz.ga'
+CSRF_TRUSTED_ORIGINS = ['ratebot-api.oziquz.ga']
 
 # Application definition
 
@@ -84,10 +84,15 @@ WSGI_APPLICATION = 'Revorate.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ratebot',
+        'USER': 'ratebot',
+        'PASSWORD': 'f6rwsR54jT5TRuka',
+        'HOST': 'localhost',
+        'PORT': '6432'
     }
 }
+
 
 
 # Password validation
@@ -138,6 +143,5 @@ API_TOKEN = os.environ.get('API_TOKEN')
 WEBHOOK_HOST = os.environ.get('WEBHOOK_HOST')
 WEBHOOK_URL_BASE = 'https://%s/bot' % WEBHOOK_HOST
 WEBHOOK_URL_PATH = '%s/' % API_TOKEN
-WEBHOOK_SSL_CERT = '/home/telegrambot/certs/cert.pem'
 
 CLOUD_BROWSER_KEY = os.getenv('CLOUD_BROWSER_KEY')
