@@ -42,6 +42,7 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     language = models.CharField(max_length=10, blank=True, null=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True, null=True)
+    dispatcher = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
     is_manager = models.BooleanField(default=False)
 
 
