@@ -14,7 +14,7 @@ def init():
     """
     Init the scheduler
     """
-    notification_trigger = CronTrigger(hour=21, minute=0, timezone='Asia/Tashkent')
+    notification_trigger = CronTrigger(hour=21, minute=0, day='*', timezone='Asia/Tashkent')
     _scheduler.add_job(notify_users_about_estimates, notification_trigger)
     _scheduler.start()
 
